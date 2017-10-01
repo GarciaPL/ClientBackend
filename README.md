@@ -92,3 +92,5 @@ Postman collection has been attached to project to bring support for developers 
 
 ### License
 Code released under the  Apache License 2.0. Docs released under Creative Commons.
+
+[![ghit.me](https://ghit.me/badge.svg?repo=GarciaPL/ClientBackend)](https://ghit.me/repo/GarciaPL/ClientBackend)
