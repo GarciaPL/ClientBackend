@@ -1,0 +1,9 @@
+spring:  
+  application:
+    name: backend
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery:8777/eureka/
+  instance:
+    hostname: backend

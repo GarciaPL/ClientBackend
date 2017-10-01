@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.bloomberg</groupId>
+    <artifactId>clientbackend</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>client</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-hystrix</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-eureka</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-feign</artifactId>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.0.2</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>com.bloomberg.client.ClientApplication</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>io.fabric8</groupId>
+        <artifactId>docker-maven-plugin</artifactId>
+        <version>0.22.1</version>
+        <configuration>
+          <images>
+            <image>
+              <alias>client</alias>
+              <name>bloomberg/client:${project.version}</name>
+
+              <build>
+                <from>openjdk:alpine</from>
+                <maintainer>Lukasz Ciesluk</maintainer>
+                <tags>
+                  <tag>latest</tag>
+                </tags>
+                <assembly>
+                  <descriptorRef>artifact</descriptorRef>
+                </assembly>
+                <cmd>java -jar -Dspring.profiles.active=prod maven/${project.name}-${project.version}.jar</cmd>
+                <ports>
+                  <port>8080</port>
+                </ports>
+                <entryPoint>java -jar -Dspring.profiles.active=prod maven/${project.name}-${project.version}.jar</entryPoint>
+              </build>
+
+              <run>
+                <ports>
+                  <port>8080:8080</port>
+                </ports>
+                <wait>
+                  <tcp>
+                    <ports>
+                      <port>8080</port>
+                    </ports>
+                  </tcp>
+                  <time>60000</time>
+                </wait>
+                <log>
+                  <enabled>true</enabled>
+                  <prefix>client</prefix>
+                  <color>red</color>
+                </log>
+              </run>
+            </image>
+          </images>
+        </configuration>
+        <executions>
+          <execution>
+            <id>build</id>
+            <phase>install</phase>
+            <goals>
+              <goal>build</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

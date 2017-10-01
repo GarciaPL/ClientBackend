@@ -1,0 +1,47 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Bloomberg",
+		"_postman_id": "dfa82af9-9e44-b3ba-281f-cd4798ca7c4b",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "API Gateway Client Process",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8888/api/client/process",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"firstOperand\" : \"5\",\n\t\"secondOperand\" : \"5\",\n\t\"operation\" : \"ADD\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

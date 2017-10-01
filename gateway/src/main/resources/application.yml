@@ -1,0 +1,34 @@
+info:
+  app:
+    name: Gateway
+    description: Gateway
+    port: ${server.port}
+    version: 1.0.0
+server:
+  port: 8888
+
+management:
+  security:
+    enabled: false
+
+zuul:
+  prefix: /api
+  routes:
+    backend:
+      path: /backend/**
+      serviceId: backend
+      stripPrefix: false
+    client:
+      path: /client/**
+      serviceId: client
+      stripPrefix: false
+
+ribbon:
+  eureka:
+    enabled: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery:8777/eureka
+    registerWithEureka: false

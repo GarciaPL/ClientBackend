@@ -1,0 +1,33 @@
+info:
+  app:
+    name: Backend
+    description: Backend application
+    contextPath: ${server.contextPath}
+    port: ${server.port}
+    version: 1.0.0
+spring:
+  profiles:
+    active: dev
+server:
+  contextPath: /backend
+  port: 8090
+management:
+  contextPath: /admin
+  security:
+    enabled: false
+eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:8777/eureka
+  instance:
+#    hostname: backend
+    preferIpAddress: true
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+    statusPageUrlPath: ${server.contextPath}${management.contextPath}/info
+    healthCheckUrlPath: ${server.contextPath}${management.contextPath}/health
+    metadata-map:
+      management.context-path: ${management.contextPath}
+ribbon:
+  eureka:
+    enabled: true

@@ -1,0 +1,8 @@
+server:
+  port: 8777
+
+management:
+  security:
+    enabled: false
+
+spring.cloud.config.discovery.enabled: true

@@ -1,0 +1,46 @@
+version: '2'
+
+services:
+  discovery:
+    image: bloomberg/discovery:latest
+    hostname: discovery
+    container_name: discovery
+    expose:
+      - 8777
+    ports:
+      - 8777:8777   
+  gateway:
+    image: bloomberg/gateway:latest
+    hostname: gateway
+    container_name: gateway
+    expose:
+      - 8888
+    ports:
+      - 8888:8888
+    links:
+      - client
+      - backend
+    depends_on:
+      - discovery      
+  backend:
+    image: bloomberg/backend:latest
+    hostname: backend
+    container_name: backend
+    expose:
+      - 8090
+    ports:
+      - 8090:8090
+    depends_on:
+      - discovery
+  client:
+    image: bloomberg/client:latest
+    hostname: client
+    container_name: client
+    expose:
+      - 8080
+    ports:
+      - 8080:8080
+    links:
+      - backend
+    depends_on:
+      - discovery

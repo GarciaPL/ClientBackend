@@ -1,0 +1,11 @@
+spring:  
+  application:
+    name: discovery
+eureka:
+  instance:
+    hostname: discovery
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://discovery:8777/eureka/
