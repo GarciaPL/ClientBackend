@@ -16,11 +16,7 @@ management:
   security:
     enabled: false
 eureka:
-#  client:
-#    serviceUrl:
-#      defaultZone: http://localhost:8777/eureka
   instance:
-#    hostname: backend
     preferIpAddress: true
     leaseRenewalIntervalInSeconds: 1
     leaseExpirationDurationInSeconds: 2
