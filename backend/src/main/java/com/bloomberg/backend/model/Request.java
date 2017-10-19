@@ -2,7 +2,7 @@ package com.bloomberg.backend.model;
 
 import com.google.common.base.MoreObjects;
 
-public class Request extends BaseRequest {
+public class Request {
 
     private Number firstOperand;
     private Number secondOperand;
